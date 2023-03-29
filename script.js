@@ -7,6 +7,7 @@ function getComputerChoice() {
 // console.log(getComputerChoice());
 
 function playRound(playerSelection, computerSelection) {
+
     if (playerSelection === 'Rock') {
         if (computerSelection === 'Rock') {
             let result = 'It\'s a tie! We chose the same!';
@@ -56,24 +57,122 @@ function getPlayerChoice() {
 }
 //Prompt for Players's selection with case sensitivity handler
 
-function game() {
-    let wins = 0;
-    let losts = 0;
-    let ties = 0;
+// function game() {
+//     let wins = 0;
+//     let losts = 0;
+//     let ties = 0;
 
-    for (let i = 0; i < 5; i++) {
-        let playerSelection = getPlayerChoice();
-        let computerSelection = getComputerChoice();
-        let result = playRound(playerSelection, computerSelection);
-        console.log(result);
-        if (result.charAt(4) === "w") {
-            wins++;
-        } else if (result.charAt(4) === "l") {
-            losts++;
-        } else { ties++; }
+//     for (let i = 0; i < 5; i++) {
+//         let playerSelection = getPlayerChoice();
+//         let computerSelection = getComputerChoice();
+//         let result = playRound(playerSelection, computerSelection);
+//         console.log(result);
+//         if (result.charAt(4) === "w") {
+//             wins++;
+//         } else if (result.charAt(4) === "l") {
+//             losts++;
+//         } else { ties++; }
+//     }
+//     let outcome = `Out of 5 attempts, you have ${wins} win(s), ${losts} lost(s), and ${ties} tie(s).`;
+//     return outcome;
+// }
+
+// console.log(game());
+
+const R = document.querySelector('.R');
+const P = document.querySelector('.P');
+const S = document.querySelector('.S');
+
+const roundResult = document.createElement('div');
+const bod = document.querySelector('.bod');
+const score = document.querySelector('.score');
+
+let wins = 0;
+let losts = 0;
+let ties = 0;
+
+
+
+
+R.addEventListener('click', () => {
+    let playerSelection = 'Rock';
+    let computerSelection = getComputerChoice();
+    let result = playRound(playerSelection,computerSelection);
+    roundResult.textContent = `${result}`;
+    bod.appendChild(roundResult);
+
+    if (result.charAt(4) === "w") {
+        wins++;
+    } else if (result.charAt(4) === "l") {
+        losts++;
+    } else { ties++; }
+
+    yourWins.textContent = `Your Wins: ${wins}`;;
+    computerWins.textContent = `Computer Wins: ${losts}`;  
+    checker();              
+});
+
+P.addEventListener('click', () => {
+    let playerSelection = 'Paper';
+    let computerSelection = getComputerChoice();
+    let result = playRound(playerSelection,computerSelection);
+    roundResult.textContent = `${result}`;
+    bod.appendChild(roundResult);
+
+    if (result.charAt(4) === "w") {
+        wins++;
+    } else if (result.charAt(4) === "l") {
+        losts++;
+    } else { ties++; }
+
+    yourWins.textContent = `Your Wins: ${wins}`;;
+    computerWins.textContent = `Computer Wins: ${losts}`;
+    checker();
+});
+
+S.addEventListener('click', () => {
+    let playerSelection = 'Scissors';
+    let computerSelection = getComputerChoice();
+    let result = playRound(playerSelection,computerSelection);
+    roundResult.textContent = `${result}`;
+    bod.appendChild(roundResult);
+    
+    if (result.charAt(4) === "w") {
+        wins++;
+    } else if (result.charAt(4) === "l") {
+        losts++;
+    } else { ties++; }
+
+    yourWins.textContent = `Your Wins: ${wins}`;;
+    computerWins.textContent = `Computer Wins: ${losts}`;
+    checker();
+});
+
+
+const yourWins = document.createElement('h3');
+const computerWins = document.createElement('h3');
+
+score.appendChild(yourWins);
+score.appendChild(computerWins);
+
+yourWins.textContent = `Your Wins: ${wins}`;;
+computerWins.textContent = `Computer Wins: ${losts}`;
+
+
+
+function checker() {
+if ((wins === 5) || (losts === 5)) {
+    document.querySelector('.buttons').style.display = 'none';
+    
+    if (yourWins === 5) {
+        yourWins.textContent = 'You WON!';
+        computerWins.style.display = 'none';
+    } else {
+        yourWins.textContent = 'You LOST!';
+        computerWins.style.display = 'none';
     }
-    let outcome = `Out of 5 attempts, you have ${wins} win(s), ${losts} lost(s), and ${ties} tie(s).`;
-    return outcome;
 }
 
-console.log(game());
+}
+
+// roundResult.textContent = `${result}`;
